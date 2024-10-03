@@ -2,64 +2,74 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Calculations;
+use App\Entity\VehiculeType;
 use App\Service\CalculationService;
-use App\Repository\VehiculeTypeRepository;
-use App\Helper\RequestHelper;
-use App\DTO\CalculationInput;
 
 class CalculationController extends AbstractController
 {
     private $calculationService;
-    private $vehicleTypeRepository;
-    private $requestHelper;
 
-    public function __construct(
-        CalculationService $calculationService,
-        VehiculeTypeRepository $vehicleTypeRepository,
-        RequestHelper $requestHelper
-    ) {
+    public function __construct(CalculationService $calculationService)
+    {
         $this->calculationService = $calculationService;
-        $this->vehicleTypeRepository = $vehicleTypeRepository;
-        $this->requestHelper = $requestHelper;
     }
 
-    #[Route('/api/calculate', name: 'api_calculate', methods: ['POST'])]
-    public function calculate(Request $request): JsonResponse
+    /**
+     * @throws \Exception
+     */
+    #[Route('/api/calculate', name: 'save_calculation', methods: ['POST'])]
+    public function saveCalculation(Request $request, EntityManagerInterface $em): JsonResponse
     {
-        // Decode the JSON body of the request
-        $inputData = json_decode($request->getContent(), true);
+        // Decode the incoming request
+        $data = json_decode($request->getContent(), true);
+        $basePrice = $data['base_price'] ?? null;
+        $vehicleTypeId = $data['vehicle_type_id'] ?? null;
 
-        // Instantiate the DTO with the request data
-        $calculationInput = new CalculationInput($inputData['base_price'] ?? null, $inputData['vehicle_type_id'] ?? null);
-
-        // Validate the DTO using the helper
-        $errors = $this->requestHelper->validateDTO($calculationInput);
-        if (count($errors) > 0) {
-            return $this->requestHelper->formatValidationErrors($errors);
+        // Validate input
+        if (!$basePrice || !$vehicleTypeId) {
+            return $this->json(['error' => 'Invalid input. Base price and vehicle type are required.'], JsonResponse::HTTP_BAD_REQUEST);
         }
 
         // Fetch the vehicle type from the database
-        $vehicleType = $this->vehicleTypeRepository->find($calculationInput->getVehicleTypeId());
+        $vehicleType = $em->getRepository(VehiculeType::class)->find($vehicleTypeId);
         if (!$vehicleType) {
-            return $this->json([
-                'error' => 'Invalid vehicle type ID.'
-            ], JsonResponse::HTTP_BAD_REQUEST);
+            return $this->json(['error' => 'Invalid vehicle type ID.'], JsonResponse::HTTP_BAD_REQUEST);
         }
 
-        // Perform the calculation
-        try {
-            $result = $this->calculationService->calculateTotalCost($calculationInput->getBasePrice(), $vehicleType);
-            return $this->requestHelper->createResponse($result);
-        } catch (\Exception $e) {
-            return $this->json([
-                'error' => 'An error occurred during calculation: ' . $e->getMessage()
-            ], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        // Calculate total cost using CalculationService
+        $fees = $this->calculationService->calculateTotalCost($basePrice, $vehicleType);
+
+        // Check if the user is authenticated
+        $user = $this->getUser();
+
+        if ($user instanceof User) {
+            // If the user is authenticated, save the calculation to the database
+            $calculation = new Calculations();
+            $calculation->setBasePrice($basePrice);
+            $calculation->setVehicleType($vehicleType);
+            $calculation->setBasicFee($fees['basic_fee']);
+            $calculation->setSpecialFee($fees['special_fee']);
+            $calculation->setAssociationFee($fees['association_fee']);
+            $calculation->setStorageFee($fees['storage_fee']);
+            $calculation->setTotalPrice($fees['total_cost']);
+            $calculation->setUser($user);  // Associate with authenticated user
+
+            // Persist and save the calculation
+            $em->persist($calculation);
+            $em->flush();
         }
+
+        return $this->json([
+            'status' => 'Calculation completed!',
+            'fees' => $fees,
+            'saved' => (bool)$user  // Indicate if calculation was saved
+        ]);
     }
 }
-
-

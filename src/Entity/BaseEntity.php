@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 
 #[ORM\MappedSuperclass]
+#[ORM\HasLifecycleCallbacks]
 abstract class BaseEntity
 {
     #[ORM\Id]
@@ -46,5 +47,20 @@ abstract class BaseEntity
         $this->updated_at = $updated_at;
 
         return $this;
+    }
+
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): void
+    {
+        if ($this->created_at === null) {
+            $this->created_at = new \DateTimeImmutable();
+        }
+    }
+
+    #[ORM\PreUpdate]
+    public function setUpdatedAtValue(): void
+    {
+        $this->updated_at = new \DateTimeImmutable();
     }
 }
