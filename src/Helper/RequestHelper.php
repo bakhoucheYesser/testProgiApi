@@ -19,7 +19,6 @@ class RequestHelper
     }
 
     /**
-     * Validate the given DTO.
      *
      * @param object $dto
      * @return ConstraintViolationListInterface
@@ -30,7 +29,6 @@ class RequestHelper
     }
 
     /**
-     * Format validation errors into a JSON response.
      *
      * @param ConstraintViolationListInterface $errors
      * @return JsonResponse
@@ -49,7 +47,6 @@ class RequestHelper
     }
 
     /**
-     * Create a standardized JSON response.
      *
      * @param array $data
      * @param bool $success
