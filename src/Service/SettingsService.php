@@ -22,7 +22,6 @@ class SettingsService
         $setting = $this->settingsRepository->findOneBy(['settingKey' => $key]);
 
         if (!$setting) {
-            // If the setting doesn't exist, create a new one
             $setting = new Settings();
             $setting->setSettingKey($key);
         }

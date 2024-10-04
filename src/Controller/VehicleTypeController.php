@@ -23,12 +23,11 @@ class VehicleTypeController extends AbstractController
     }
 
 
-    #[IsGranted("ROLE_ADMIN")]
     #[Route('/api/vehicle-types', name: 'get_vehicle_types', methods: ['GET'])]
     public function getVehicleTypes(): JsonResponse
     {
         $vehicleTypes = $this->vehicleTypeService->getAllVehicleTypes();
-        return $this->json($vehicleTypes);
+        return $this->json($vehicleTypes, 200, [], ['groups' => ['vehicle']]);
     }
     #[IsGranted("ROLE_ADMIN")]
     #[Route('/api/vehicle-types', name: 'create_vehicle_type', methods: ['POST'])]
@@ -50,7 +49,6 @@ class VehicleTypeController extends AbstractController
             return $this->requestHelper->formatValidationErrors($errors);
         }
 
-        // Create vehicle type using the service
         $vehicleType = $this->vehicleTypeService->createVehicleType($dto);
 
         return $this->json([
@@ -65,7 +63,7 @@ class VehicleTypeController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
 
-        // Create DTO and validate it
+
         $dto = new VehicleTypeDTO(
             $data['name'],
             $data['basic_fee_min'],
@@ -79,7 +77,6 @@ class VehicleTypeController extends AbstractController
             return $this->requestHelper->formatValidationErrors($errors);
         }
 
-        // Update vehicle type using the service
         $vehicleType = $this->vehicleTypeService->updateVehicleType($id, $dto);
         if (!$vehicleType) {
             return $this->json(['status' => 'Vehicle type not found'], 404);

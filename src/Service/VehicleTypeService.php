@@ -25,7 +25,7 @@ class VehicleTypeService
         $vehicleType->setBasicFeeMin($dto->getBasicFeeMin());
         $vehicleType->setBasicFeeMax($dto->getBasicFeeMax());
         $vehicleType->setBasicFeeRate($dto->getBasicFeePercentage());
-        $vehicleType->setSpecialFeeRate($dto->getSpecialFeePercentage());
+        $vehicleType->setSpecialFeeRate($dto->getSpecialFeePercentage());  // Fixed here
 
         $this->em->persist($vehicleType);
         $this->em->flush();
@@ -47,8 +47,8 @@ class VehicleTypeService
         $vehicleType->setName($dto->getName());
         $vehicleType->setBasicFeeMin($dto->getBasicFeeMin());
         $vehicleType->setBasicFeeMax($dto->getBasicFeeMax());
-        $vehicleType->setSpecialFeeRate($dto->getBasicFeePercentage());
-        $vehicleType->setSpecialFeeRate($dto->getSpecialFeePercentage());
+        $vehicleType->setBasicFeeRate($dto->getBasicFeePercentage());  // Fixed here
+        $vehicleType->setSpecialFeeRate($dto->getSpecialFeePercentage());  // Corrected
 
         $this->em->flush();
 
@@ -71,4 +71,3 @@ class VehicleTypeService
         return $this->em->getRepository(VehiculeType::class)->find($id);
     }
 }
-

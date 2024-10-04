@@ -27,18 +27,19 @@ class SettingsController extends AbstractController
     #[Route('/api/settings', name: 'update_setting', methods: ['PUT'])]
     public function updateSetting(Request $request): JsonResponse
     {
-        // Decode the incoming request
+
         $data = json_decode($request->getContent(), true);
 
-        // Create DTO and validate it
         $dto = new SettingsDTO($data['settingKey'], $data['value']);
         $errors = $this->requestHelper->validateDTO($dto);
         if (count($errors) > 0) {
             return $this->requestHelper->formatValidationErrors($errors);
         }
 
-        // Update the setting using the service
-        $setting = $this->settingsService->updateSetting($dto->getSettingKey(), $dto->getValue());
+        $setting = $this->settingsService->updateSetting(
+            $dto->getSettingKey(),
+            $dto->getValue()
+        );
 
         return $this->json([
             'status' => 'Setting updated!',

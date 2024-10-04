@@ -17,19 +17,20 @@ class AssociationFeesRepository extends ServiceEntityRepository
     }
 
     /**
-     * Find the appropriate fee for a given base price.
      *
-     * @param float $basePrice The base price of the vehicle.
-     * @return AssociationFees|null The matching association fee entity or null if not found.
+     * @param float $basePrice
+     * @return AssociationFees|null
      */
     public function findFeeForPrice(float $basePrice): ?AssociationFees
     {
-        // Query to find the appropriate fee based on the base price
         return $this->createQueryBuilder('af')
             ->where(':basePrice >= af.min_price')
             ->andWhere(':basePrice <= af.max_price OR af.max_price IS NULL')
             ->setParameter('basePrice', $basePrice)
+            ->orderBy('af.min_price', 'DESC')  // Ensures the highest min_price is returned
+            ->setMaxResults(1)  // Limit to one result
             ->getQuery()
             ->getOneOrNullResult();
     }
+
 }

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 
 #[ORM\MappedSuperclass]
@@ -12,6 +13,7 @@ abstract class BaseEntity
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("vehicle")]
     private ?int $id = null;
 
     #[ORM\Column]
