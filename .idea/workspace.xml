@@ -4,32 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="87400332-7b94-46ac-8a04-f3212856376d" name="Changes" comment="first commit">
-      <change afterPath="$PROJECT_DIR$/tests/Controller/CalculationControllerTest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/Repository/AssociationFeesRepositoryTest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/Service/SettingsServiceTest.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/Service/VehicleTypeServiceTest.php" afterDir="false" />
+    <list default="true" id="87400332-7b94-46ac-8a04-f3212856376d" name="Changes" comment="adjust documentation">
+      <change afterPath="$PROJECT_DIR$/src/Controller/User/IndexController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/User/RemoveController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/VehicleType/CreateController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/VehicleType/EditController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/VehicleType/RemoveController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/settings/IndexController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env.test" beforeDir="false" afterPath="$PROJECT_DIR$/.env.test" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/autoAuction.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/autoAuction.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/6542be5a-2c88-4956-9eec-105bddaaa085.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/6542be5a-2c88-4956-9eec-105bddaaa085.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/phpspec.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/phpspec.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/doctrine.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/doctrine.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/lexik_jwt_authentication.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/lexik_jwt_authentication.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/phpunit.xml.dist" beforeDir="false" afterPath="$PROJECT_DIR$/phpunit.xml.dist" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/CalculationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CalculationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SettingsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SettingsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/VehicleTypeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/VehicleTypeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/BaseEntity.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/BaseEntity.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/SettingsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/settings/EditController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/VehicleTypeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/VehicleType/IndexController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/VehiculeType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/VehiculeType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/AssociationFeesRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/AssociationFeesRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/CalculationService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/CalculationService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/SettingsService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/SettingsService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/VehicleTypeService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/VehicleTypeService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/bootstrap.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,6 +174,7 @@
       <path value="$PROJECT_DIR$/vendor/lcobucci/jwt" />
       <path value="$PROJECT_DIR$/vendor/lcobucci/clock" />
       <path value="$PROJECT_DIR$/vendor/lexik/jwt-authentication-bundle" />
+      <path value="$PROJECT_DIR$/vendor/nelmio/cors-bundle" />
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
@@ -199,6 +197,8 @@
     "PHPUnit.VehicleTypeServiceTest.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "com.jetbrains.php.phpunit.codeGeneration.PhpNewTestDialog.defaultLibrary": "PHPUnit",
+    "database.data.extractors.current.export.id": "JSON-Groovy.json.groovy",
+    "database.data.extractors.current.id": "JSON-Groovy.json.groovy",
     "git-widget-placeholder": "main",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -262,7 +262,7 @@
       <updated>1727844079236</updated>
       <workItem from="1727844080523" duration="837000" />
       <workItem from="1727889046766" duration="36488000" />
-      <workItem from="1727969807129" duration="22883000" />
+      <workItem from="1727969807129" duration="54269000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -280,7 +280,23 @@
       <option name="project" value="LOCAL" />
       <updated>1727939918150</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="test unit">
+      <option name="closed" value="true" />
+      <created>1728066427969</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1728066427969</updated>
+    </task>
+    <task id="LOCAL-00004" summary="adjust documentation">
+      <option name="closed" value="true" />
+      <created>1728066782986</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1728066782986</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -288,6 +304,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="first commit" />
+    <MESSAGE value="test unit" />
+    <MESSAGE value="adjust documentation" />
+    <option name="LAST_COMMIT_MESSAGE" value="adjust documentation" />
   </component>
 </project>

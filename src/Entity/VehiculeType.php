@@ -16,22 +16,26 @@ class VehiculeType extends BaseEntity
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[Groups("vehicle")]
     #[ORM\Column]
     private ?float $basic_fee_min = null;
 
+    #[Groups("vehicle")]
     #[ORM\Column]
     private ?float $basic_fee_max = null;
 
+    #[Groups("vehicle")]
     #[ORM\Column]
     private ?float $basic_fee_rate = null;
 
+    #[Groups("vehicle")]
     #[ORM\Column]
     private ?float $special_fee_rate = null;
 
     /**
      * @var Collection<int, Calculations>
      */
-    #[ORM\OneToMany(targetEntity: Calculations::class, mappedBy: 'vehicle_type')]
+    #[ORM\OneToMany(targetEntity: Calculations::class, mappedBy: 'vehicle_type', cascade: ['remove'], orphanRemoval: true)]
     private Collection $calculations;
 
     public function __construct()
