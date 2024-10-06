@@ -4,29 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="87400332-7b94-46ac-8a04-f3212856376d" name="Changes" comment="adjust documentation">
-      <change afterPath="$PROJECT_DIR$/src/Controller/User/IndexController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/User/RemoveController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/VehicleType/CreateController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/VehicleType/EditController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/VehicleType/RemoveController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/settings/IndexController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/autoAuction.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/autoAuction.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6542be5a-2c88-4956-9eec-105bddaaa085.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/6542be5a-2c88-4956-9eec-105bddaaa085.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/phpspec.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/phpspec.xml" afterDir="false" />
+    <list default="true" id="87400332-7b94-46ac-8a04-f3212856376d" name="Changes" comment="vwhicle types api &#10;nelmio cors bundel &#10;setting api">
+      <change afterPath="$PROJECT_DIR$/src/Service/FeeStrateg/AssociationFeeStrategy.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/FeeStrateg/BasicFeeStrategy.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/FeeStrateg/FeeStrategyInterface.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/FeeStrateg/SpecialFeeStrategy.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/lexik_jwt_authentication.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/lexik_jwt_authentication.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/framework.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/framework.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/CalculationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CalculationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SettingsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/settings/EditController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/VehicleTypeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/VehicleType/IndexController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/VehiculeType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/VehiculeType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DTO/CalculationInput.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DTO/CalculationInput.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/AssociationFeesRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/AssociationFeesRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/CalculationsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/CalculationsRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/CalculationService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/CalculationService.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -262,7 +251,7 @@
       <updated>1727844079236</updated>
       <workItem from="1727844080523" duration="837000" />
       <workItem from="1727889046766" duration="36488000" />
-      <workItem from="1727969807129" duration="54269000" />
+      <workItem from="1727969807129" duration="72314000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -296,7 +285,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728066782986</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="vwhicle types api &#10;nelmio cors bundel &#10;setting api">
+      <option name="closed" value="true" />
+      <created>1728159989095</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1728159989095</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -306,6 +303,7 @@
     <MESSAGE value="first commit" />
     <MESSAGE value="test unit" />
     <MESSAGE value="adjust documentation" />
-    <option name="LAST_COMMIT_MESSAGE" value="adjust documentation" />
+    <MESSAGE value="vwhicle types api &#10;nelmio cors bundel &#10;setting api" />
+    <option name="LAST_COMMIT_MESSAGE" value="vwhicle types api &#10;nelmio cors bundel &#10;setting api" />
   </component>
 </project>

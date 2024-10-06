@@ -27,8 +27,8 @@ class AssociationFeesRepository extends ServiceEntityRepository
             ->where(':basePrice >= af.min_price')
             ->andWhere(':basePrice <= af.max_price OR af.max_price IS NULL')
             ->setParameter('basePrice', $basePrice)
-            ->orderBy('af.min_price', 'DESC')  // Ensures the highest min_price is returned
-            ->setMaxResults(1)  // Limit to one result
+            ->orderBy('af.min_price', 'DESC')
+            ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
     }
