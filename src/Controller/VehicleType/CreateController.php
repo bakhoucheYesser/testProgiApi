@@ -13,8 +13,8 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class CreateController extends AbstractController
 {
-    private $requestHelper;
-    private $vehicleTypeService;
+    private RequestHelper $requestHelper;
+    private VehicleTypeService $vehicleTypeService;
 
     public function __construct(RequestHelper $requestHelper, VehicleTypeService $vehicleTypeService)
     {

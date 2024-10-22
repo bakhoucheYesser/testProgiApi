@@ -13,7 +13,7 @@ abstract class BaseEntity
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups("vehicle")]
+    #[Groups(["vehicle" , "user"])]
     private ?int $id = null;
 
     #[ORM\Column]

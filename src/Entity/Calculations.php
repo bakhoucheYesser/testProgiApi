@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\CalculationsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Serializer\Attribute\MaxDepth;
 
 #[ORM\Entity(repositoryClass: CalculationsRepository::class)]
 class Calculations extends BaseEntity
@@ -12,25 +14,33 @@ class Calculations extends BaseEntity
     #[ORM\ManyToOne(inversedBy: 'calculations')]
     private ?User $user = null;
 
+    #[Groups("user")]
     #[ORM\ManyToOne(inversedBy: 'calculations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?VehiculeType $vehicle_type = null;
 
+
+    #[Groups("user")]
     #[ORM\Column]
     private ?float $base_price = null;
 
+    #[Groups("user")]
     #[ORM\Column]
     private ?float $basic_fee = null;
 
+    #[Groups("user")]
     #[ORM\Column]
     private ?float $special_fee = null;
 
+    #[Groups("user")]
     #[ORM\Column]
     private ?float $association_fee = null;
 
+    #[Groups("user")]
     #[ORM\Column]
     private ?float $storage_fee = null;
 
+    #[Groups("user")]
     #[ORM\Column]
     private ?float $total_price = null;
 

@@ -8,18 +8,21 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 class User extends BaseEntity implements UserInterface, PasswordAuthenticatedUserInterface
 {
 
+    #[Groups("user")]
     #[ORM\Column(length: 180)]
     private ?string $email = null;
 
     /**
      * @var list<string> The user roles
      */
+    #[Groups("user")]
     #[ORM\Column]
     private array $roles = [];
 
@@ -29,13 +32,15 @@ class User extends BaseEntity implements UserInterface, PasswordAuthenticatedUse
     #[ORM\Column]
     private ?string $password = null;
 
+    #[Groups("user")]
     #[ORM\Column(length: 255)]
     private ?string $username = null;
 
     /**
      * @var Collection<int, Calculations>
      */
-    #[ORM\OneToMany(targetEntity: Calculations::class, mappedBy: 'user')]
+    #[Groups("user")]
+    #[ORM\OneToMany(targetEntity: Calculations::class, mappedBy: 'user', fetch: 'EAGER')]
     private Collection $calculations;
 
     public function __construct()

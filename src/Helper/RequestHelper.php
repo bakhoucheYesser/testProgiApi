@@ -40,21 +40,29 @@ class RequestHelper
             $formattedErrors[] = $error->getPropertyPath() . ': ' . $error->getMessage();
         }
 
-        return new JsonResponse([
+        return new JsonResponse
+        (
+            [
             'error' => 'Invalid input.',
             'details' => $formattedErrors,
-        ], JsonResponse::HTTP_BAD_REQUEST);
+            ],
+            JsonResponse::HTTP_BAD_REQUEST
+        );
     }
 
     /**
-     *
      * @param array $data
      * @param bool $success
      * @param int $status
+     * @param array $groups
      * @return JsonResponse
      */
-    public function createResponse(array $data, bool $success = true, int $status = 200): JsonResponse
+    public function createResponse(array $data, bool $success = true, int $status = 200, array $groups = []): JsonResponse
     {
+        if (!empty($groups)) {
+            $data = json_decode($this->serializer->serialize($data, 'json', ['groups' => $groups]), true);
+        }
+
         return new JsonResponse([
             'success' => $success,
             'data' => $data,

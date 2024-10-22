@@ -44,7 +44,10 @@ class EditController extends AbstractController
 
         $vehicleType = $this->vehicleTypeService->updateVehicleType($id, $dto);
         if (!$vehicleType) {
-            return $this->json(['status' => 'Vehicle type not found'], 404);
+            return $this->json(
+                ['status' => 'Vehicle type not found'],
+                404
+            );
         }
 
         return $this->json([

@@ -22,3 +22,19 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\Service\FeeStrateg\BasicFeeStrategy:
+        tags: [ 'app.fee_strategy' ]
+
+    App\Service\FeeStrateg\SpecialFeeStrategy:
+        tags: [ 'app.fee_strategy' ]
+
+    App\Service\FeeStrateg\AssociationFeeStrategy:
+        tags: [ 'app.fee_strategy' ]
+
+    App\Service\FeeStrateg\StorageFeeStrategy:
+        tags: [ 'app.fee_strategy' ]
+
+    App\Service\CalculationService:
+        arguments:
+            $feeStrategies: !tagged app.fee_strategy
