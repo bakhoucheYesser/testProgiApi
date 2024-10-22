@@ -4,18 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="87400332-7b94-46ac-8a04-f3212856376d" name="Changes" comment="vwhicle types api &#10;nelmio cors bundel &#10;setting api">
-      <change afterPath="$PROJECT_DIR$/src/Service/FeeStrateg/AssociationFeeStrategy.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/FeeStrateg/BasicFeeStrategy.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/FeeStrateg/FeeStrategyInterface.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/FeeStrateg/SpecialFeeStrategy.php" afterDir="false" />
+    <list default="true" id="87400332-7b94-46ac-8a04-f3212856376d" name="Changes" comment="user settings">
+      <change beforePath="$PROJECT_DIR$/.idea/autoAuction.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/autoAuction.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6542be5a-2c88-4956-9eec-105bddaaa085.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/6542be5a-2c88-4956-9eec-105bddaaa085.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/phpspec.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/phpspec.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/framework.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/framework.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/CalculationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CalculationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DTO/CalculationInput.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DTO/CalculationInput.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/AssociationFeesRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/AssociationFeesRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Repository/CalculationsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/CalculationsRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/CalculationService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/CalculationService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +29,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;bakhoucheYesser&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/bakhoucheYesser/testProgi&quot;,
+    &quot;accountId&quot;: &quot;901fb44d-3488-4224-a67a-972015cc193c&quot;
+  }
+}</component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/opt/homebrew/Cellar/php/8.3.7/bin/php">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/symfony/http-kernel" />
@@ -164,6 +176,11 @@
       <path value="$PROJECT_DIR$/vendor/lcobucci/clock" />
       <path value="$PROJECT_DIR$/vendor/lexik/jwt-authentication-bundle" />
       <path value="$PROJECT_DIR$/vendor/nelmio/cors-bundle" />
+      <path value="$PROJECT_DIR$/vendor/fakerphp/faker" />
+      <path value="$PROJECT_DIR$/vendor/zenstruck/foundry" />
+      <path value="$PROJECT_DIR$/vendor/zenstruck/assert" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/data-fixtures" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-fixtures-bundle" />
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
@@ -174,41 +191,45 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "PHPUnit.AssociationFeesRepositoryTest.executor": "Run",
-    "PHPUnit.AssociationFeesRepositoryTest.testFindFeeForPrice.executor": "Run",
-    "PHPUnit.CalculationControllerTest.executor": "Run",
-    "PHPUnit.CalculationServiceTest (1).executor": "Run",
-    "PHPUnit.CalculationServiceTest.executor": "Run",
-    "PHPUnit.CalculationServiceTest.testCalculateTotalCost.executor": "Run",
-    "PHPUnit.SettingsServiceTest.executor": "Run",
-    "PHPUnit.VehicleTypeServiceTest.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "com.jetbrains.php.phpunit.codeGeneration.PhpNewTestDialog.defaultLibrary": "PHPUnit",
-    "database.data.extractors.current.export.id": "JSON-Groovy.json.groovy",
-    "database.data.extractors.current.id": "JSON-Groovy.json.groovy",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_interpreter_path": "node",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;PHPUnit.AssociationFeesRepositoryTest.executor&quot;: &quot;Run&quot;,
+    &quot;PHPUnit.AssociationFeesRepositoryTest.testFindFeeForPrice.executor&quot;: &quot;Run&quot;,
+    &quot;PHPUnit.CalculationControllerTest.executor&quot;: &quot;Run&quot;,
+    &quot;PHPUnit.CalculationServiceTest (1).executor&quot;: &quot;Run&quot;,
+    &quot;PHPUnit.CalculationServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;PHPUnit.CalculationServiceTest.testCalculateTotalCost.executor&quot;: &quot;Run&quot;,
+    &quot;PHPUnit.SettingsServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;PHPUnit.VehicleTypeServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;com.jetbrains.php.phpunit.codeGeneration.PhpNewTestDialog.defaultLibrary&quot;: &quot;PHPUnit&quot;,
+    &quot;database.data.extractors.current.export.id&quot;: &quot;JSON-Groovy.json.groovy&quot;,
+    &quot;database.data.extractors.current.id&quot;: &quot;JSON-Groovy.json.groovy&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/yesserbakhouche/PhpstormProjects/50project/autoAuction&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.grazie&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="PHPUnit.CalculationControllerTest">
-    <configuration name="AssociationFeesRepositoryTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="App\Tests\Repository\AssociationFeesRepositoryTest" configuration_file="$PROJECT_DIR$/phpunit.xml.dist" file="$PROJECT_DIR$/tests/Repository/AssociationFeesRepositoryTest.php" scope="Class" />
-      <method v="2" />
-    </configuration>
-    <configuration name="AssociationFeesRepositoryTest.testFindFeeForPrice" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
-      <TestRunner class="App\Tests\Repository\AssociationFeesRepositoryTest" configuration_file="$PROJECT_DIR$/phpunit.xml.dist" file="$PROJECT_DIR$/tests/Repository/AssociationFeesRepositoryTest.php" method="testFindFeeForPrice" scope="Method" />
-      <method v="2" />
-    </configuration>
+}</component>
+  <component name="RunManager" selected="PHPUnit.Main">
     <configuration name="CalculationControllerTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
       <TestRunner class="App\Tests\Controller\CalculationControllerTest" configuration_file="$PROJECT_DIR$/phpunit.xml.dist" file="$PROJECT_DIR$/tests/Controller/CalculationControllerTest.php" scope="Class" />
+      <method v="2" />
+    </configuration>
+    <configuration name="CalculationServiceTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="App\Tests\Service\CalculationServiceTest" configuration_file="$PROJECT_DIR$/phpunit.xml.dist" file="$PROJECT_DIR$/tests/Service/CalculationServiceTest.php" scope="Class" />
+      <method v="2" />
+    </configuration>
+    <configuration name="CalculationServiceTest.testCalculateTotalCost" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="App\Tests\Service\CalculationServiceTest" configuration_file="$PROJECT_DIR$/phpunit.xml.dist" file="$PROJECT_DIR$/tests/Service/CalculationServiceTest.php" method="testCalculateTotalCost" scope="Method" />
       <method v="2" />
     </configuration>
     <configuration name="Main" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -223,15 +244,6 @@
       <TestRunner class="App\Tests\Service\VehicleTypeServiceTest" configuration_file="$PROJECT_DIR$/phpunit.xml.dist" file="$PROJECT_DIR$/tests/Service/VehicleTypeServiceTest.php" scope="Class" />
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="PHPUnit.CalculationControllerTest" />
-        <item itemvalue="PHPUnit.AssociationFeesRepositoryTest" />
-        <item itemvalue="PHPUnit.AssociationFeesRepositoryTest.testFindFeeForPrice" />
-        <item itemvalue="PHPUnit.VehicleTypeServiceTest" />
-        <item itemvalue="PHPUnit.SettingsServiceTest" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -251,7 +263,17 @@
       <updated>1727844079236</updated>
       <workItem from="1727844080523" duration="837000" />
       <workItem from="1727889046766" duration="36488000" />
-      <workItem from="1727969807129" duration="72314000" />
+      <workItem from="1727969807129" duration="74200000" />
+      <workItem from="1728231466100" duration="22335000" />
+      <workItem from="1728412226547" duration="11143000" />
+      <workItem from="1728489742171" duration="2459000" />
+      <workItem from="1728608942554" duration="2340000" />
+      <workItem from="1728709648696" duration="77000" />
+      <workItem from="1728832810704" duration="1730000" />
+      <workItem from="1728923264148" duration="11824000" />
+      <workItem from="1729136419011" duration="150000" />
+      <workItem from="1729136576597" duration="108000" />
+      <workItem from="1729562535183" duration="1455000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <option name="closed" value="true" />
@@ -293,7 +315,39 @@
       <option name="project" value="LOCAL" />
       <updated>1728159989095</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Implement Strategy design pattern">
+      <option name="closed" value="true" />
+      <created>1728197182817</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1728197182817</updated>
+    </task>
+    <task id="LOCAL-00007" summary="fix calculation controller test">
+      <option name="closed" value="true" />
+      <created>1728198845564</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1728198845564</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Refactor CalculationService to use dynamic fee strategy system">
+      <option name="closed" value="true" />
+      <created>1729563774713</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1729563774713</updated>
+    </task>
+    <task id="LOCAL-00009" summary="user settings">
+      <option name="closed" value="true" />
+      <created>1729563984685</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1729563984685</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -304,6 +358,10 @@
     <MESSAGE value="test unit" />
     <MESSAGE value="adjust documentation" />
     <MESSAGE value="vwhicle types api &#10;nelmio cors bundel &#10;setting api" />
-    <option name="LAST_COMMIT_MESSAGE" value="vwhicle types api &#10;nelmio cors bundel &#10;setting api" />
+    <MESSAGE value="Implement Strategy design pattern" />
+    <MESSAGE value="fix calculation controller test" />
+    <MESSAGE value="Refactor CalculationService to use dynamic fee strategy system" />
+    <MESSAGE value="user settings" />
+    <option name="LAST_COMMIT_MESSAGE" value="user settings" />
   </component>
 </project>
