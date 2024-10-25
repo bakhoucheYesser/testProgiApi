@@ -2,17 +2,20 @@
 
 namespace App\Controller;
 
+use App\DTO\CalculationInput;
 use App\Entity\User;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Calculations;
 use App\Entity\VehiculeType;
 use App\Service\CalculationService;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class CalculationController extends AbstractController
 {
@@ -26,26 +29,38 @@ class CalculationController extends AbstractController
         $this->jwtManager = $jwtManager;
     }
 
+    /**
+     * @throws \ReflectionException
+     */
     #[Route('/api/calculate', name: 'save_calculation', methods: ['POST'])]
-    public function saveCalculation(Request $request, EntityManagerInterface $em): JsonResponse
+    public function saveCalculation(Request $request, EntityManagerInterface $em , ValidatorInterface $validator
+    ): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
-        $basePrice = $data['base_price'] ?? null;
-        $vehicleTypeId = $data['vehicle_type_id'] ?? null;
 
-        if (!$basePrice || !$vehicleTypeId) {
-            return $this->json(['error' => 'Invalid input. Base price and vehicle type are required.'], JsonResponse::HTTP_BAD_REQUEST);
+        $calculationInput = new CalculationInput(
+            $data['base_price'] ?? 0,
+            $data['vehicle_type_id'] ?? 0
+        );
+
+        $errors = $validator->validate($calculationInput);
+
+        if (count($errors) > 0) {
+            $errorMessages = [];
+            foreach ($errors as $error) {
+                $errorMessages[] = $error->getMessage();
+            }
+            return new JsonResponse(['errors' => $errorMessages], Response::HTTP_BAD_REQUEST);
         }
 
-        $vehicleType = $em->getRepository(VehiculeType::class)->find($vehicleTypeId);
+        $vehicleType = $em->getRepository(VehiculeType::class)->find($calculationInput->getVehicleTypeId());
         if (!$vehicleType) {
-            return $this->json(['error' => 'Invalid vehicle type ID.'], JsonResponse::HTTP_BAD_REQUEST);
+            return $this->json(['error' => 'Invalid vehicle type ID.'], Response::HTTP_BAD_REQUEST);
         }
 
-        $fees = $this->calculationService->calculateTotalCost($basePrice, $vehicleType);
+        $fees = $this->calculationService->calculateTotalCost($calculationInput->getBasePrice(), $vehicleType);
 
         $authHeader = $request->headers->get('Authorization');
-        $authToken = null;
         $user = null;
 
         if ($authHeader && preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
@@ -65,7 +80,7 @@ class CalculationController extends AbstractController
         if ($user instanceof User) {
 
             $calculation = new Calculations();
-            $calculation->setBasePrice($basePrice);
+            $calculation->setBasePrice($calculationInput->getBasePrice());
             $calculation->setVehicleType($vehicleType);
             $calculation->setBasicFee($fees['basic_fee']);
             $calculation->setSpecialFee($fees['special_fee']);

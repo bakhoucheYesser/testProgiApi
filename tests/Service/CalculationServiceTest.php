@@ -2,62 +2,82 @@
 
 namespace App\Tests\Service;
 
-use App\Entity\Settings;
 use App\Entity\VehiculeType;
 use App\Service\CalculationService;
-use App\Service\FeeStrateg\AssociationFeeStrategy;
-use App\Service\FeeStrateg\BasicFeeStrategy;
-use App\Service\FeeStrateg\SpecialFeeStrategy;
-use App\Repository\SettingsRepository;
+use App\Service\FeeStrateg\FeeStrategyInterface;
 use PHPUnit\Framework\TestCase;
 
 class CalculationServiceTest extends TestCase
 {
-    private $settingsRepository;
-    private $basicFeeStrategy;
-    private $specialFeeStrategy;
-    private $associationFeeStrategy;
-    private $calculationService;
+    private $mockFeeStrategy1;
+    private $mockFeeStrategy2;
+    private $vehicleType;
+    private $basePrice = 100.0;
 
     protected function setUp(): void
     {
-        $this->settingsRepository = $this->createMock(SettingsRepository::class);
-        $this->basicFeeStrategy = $this->createMock(BasicFeeStrategy::class);
-        $this->specialFeeStrategy = $this->createMock(SpecialFeeStrategy::class);
-        $this->associationFeeStrategy = $this->createMock(AssociationFeeStrategy::class);
+        // Create mock for two FeeStrategyInterface implementations
+        $this->mockFeeStrategy1 = $this->getMockBuilder(FeeStrategyInterface::class)
+            ->setMockClassName('MockFeeStrategy1')
+            ->getMock();
 
-        $this->calculationService = new CalculationService(
-            $this->settingsRepository,
-            $this->basicFeeStrategy,
-            $this->specialFeeStrategy,
-            $this->associationFeeStrategy
-        );
+        $this->mockFeeStrategy2 = $this->getMockBuilder(FeeStrategyInterface::class)
+            ->setMockClassName('MockFeeStrategy2')
+            ->getMock();
+
+        // Set up the mock vehicle type
+        $this->vehicleType = $this->createMock(VehiculeType::class);
     }
 
-    public function testCalculateTotalCost(): void
+    public function testCalculateTotalCost()
     {
-        // Mock VehiculeType
-        $vehicleType = $this->createMock(VehiculeType::class);
+        // Set expectations for the mock fee strategies
+        $this->mockFeeStrategy1
+            ->expects($this->once())
+            ->method('calculate')
+            ->with($this->basePrice, $this->vehicleType)
+            ->willReturn(10.0);  // Example fee value for strategy 1
 
-        // Mock strategies
-        $this->basicFeeStrategy->method('calculate')->willReturn(50.0);
-        $this->specialFeeStrategy->method('calculate')->willReturn(40.0);
-        $this->associationFeeStrategy->method('calculate')->willReturn(20.0);
+        $this->mockFeeStrategy2
+            ->expects($this->once())
+            ->method('calculate')
+            ->with($this->basePrice, $this->vehicleType)
+            ->willReturn(20.0);  // Example fee value for strategy 2
 
-        // Mock storage fee
-        $storageSetting = $this->createMock(Settings::class);
-        $storageSetting->method('getValue')->willReturn(100.0);
-        $this->settingsRepository->method('findOneBy')->willReturn($storageSetting);
+        // Initialize the CalculationService with the mock strategies
+        $calculationService = new CalculationService([$this->mockFeeStrategy1, $this->mockFeeStrategy2]);
 
-        // Run the calculation
-        $result = $this->calculationService->calculateTotalCost(1000.0, $vehicleType);
+        // Execute the calculateTotalCost method
+        $fees = $calculationService->calculateTotalCost($this->basePrice, $this->vehicleType);
 
-        // Assert the results
-        $this->assertSame(1000.0, $result['base_price']);
-        $this->assertSame(50.0, $result['basic_fee']);
-        $this->assertSame(40.0, $result['special_fee']);
-        $this->assertSame(20.0, $result['association_fee']);
-        $this->assertSame(100.0, $result['storage_fee']);
-        $this->assertSame(1210.0, $result['total_cost']);
+        // Assert that the fees array contains the correct base price and calculated fees
+        $this->assertArrayHasKey('base_price', $fees);
+        $this->assertEquals(100.0, $fees['base_price']);
+
+        // Assert that the calculated fees are present with the correct class names
+        $this->assertArrayHasKey('mockfeestrategy1', $fees);
+        $this->assertEquals(10.0, $fees['mockfeestrategy1']);
+
+        $this->assertArrayHasKey('mockfeestrategy2', $fees);
+        $this->assertEquals(20.0, $fees['mockfeestrategy2']);
+
+        // Assert total cost
+        $this->assertEquals(130.0, $fees['total_cost']); // 100 base + 10 + 20
+    }
+
+    public function testCalculateTotalCostWithNoStrategies()
+    {
+        // Test the case where no strategies are provided
+        $calculationService = new CalculationService([]);
+
+        // Execute the calculateTotalCost method
+        $fees = $calculationService->calculateTotalCost($this->basePrice, $this->vehicleType);
+
+        // Assert that the fees array contains only the base price and total cost
+        $this->assertArrayHasKey('base_price', $fees);
+        $this->assertEquals(100.0, $fees['base_price']);
+
+        $this->assertArrayHasKey('total_cost', $fees);
+        $this->assertEquals(100.0, $fees['total_cost']); // No additional fees
     }
 }

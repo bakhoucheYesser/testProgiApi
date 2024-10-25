@@ -2,101 +2,172 @@
 
 namespace App\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpFoundation\Response;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Tools\SchemaTool;
+use App\Controller\CalculationController;
+use App\Entity\User;
 use App\Entity\VehiculeType;
-use App\Entity\AssociationFees;
+use App\Service\CalculationService;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
+use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class CalculationControllerTest extends WebTestCase
+class CalculationControllerTest extends KernelTestCase
 {
+    private $calculationService;
+    private $jwtManager;
     private $entityManager;
+    private $validator;
+    private $controller;
 
     protected function setUp(): void
     {
+        // Boot Symfony's kernel to access the container
         self::bootKernel();
 
-        $this->entityManager = self::$kernel->getContainer()
-            ->get('doctrine')
-            ->getManager();
+        // Mock the services
+        $this->calculationService = $this->createMock(CalculationService::class);
+        $this->jwtManager = $this->createMock(JWTTokenManagerInterface::class);
+        $this->entityManager = $this->createMock(EntityManagerInterface::class);
+        $this->validator = $this->createMock(ValidatorInterface::class);
 
-        $this->createDatabaseSchema();
-
-        $this->setUpDatabase();
+        // Instantiate the controller and set the container
+        $this->controller = new CalculationController($this->calculationService, $this->jwtManager);
+        $this->controller->setContainer(static::getContainer());  // Use static::getContainer() for Symfony 5.3+
     }
 
-    private function createDatabaseSchema(): void
+    public function testSaveCalculationWithValidDataAndAuthenticatedUser()
     {
-        $schemaTool = new SchemaTool($this->entityManager);
-        $metadata = $this->entityManager->getMetadataFactory()->getAllMetadata();
+        $basePrice = 100;
+        $vehicleTypeId = 1;
 
-        if (!empty($metadata)) {
-            $schemaTool->dropDatabase();
+        // Mock request data
+        $requestData = json_encode([
+            'base_price' => $basePrice,
+            'vehicle_type_id' => $vehicleTypeId
+        ]);
+        $request = Request::create('/api/calculate', 'POST', [], [], [], [], $requestData);
 
-            try {
-                $schemaTool->createSchema($metadata);
-            } catch (\Exception $e) {
-                echo "Schema creation failed: " . $e->getMessage();
-            }
-        }
-    }
+        // Mock the JWT token and user authentication
+        $authToken = 'some_token';
+        $request->headers->set('Authorization', 'Bearer ' . $authToken);
 
-    private function setUpDatabase(): void
-    {
-        // Create and persist a new VehiculeType entity
-        $vehicleType = new VehiculeType();
-        $vehicleType->setName('Test Vehicle');
-        $vehicleType->setBasicFeeMin(10.0);
-        $vehicleType->setBasicFeeMax(500.0);
-        $vehicleType->setBasicFeeRate(0.10);
-        $vehicleType->setSpecialFeeRate(0.04);
-        $this->entityManager->persist($vehicleType);
+        $userEmail = 'test@example.com';
+        $decodedToken = ['email' => $userEmail];
+        $this->jwtManager->expects($this->once())
+            ->method('parse')
+            ->with($authToken)
+            ->willReturn($decodedToken);
 
-        // Create and persist a new AssociationFees entity
-        $associationFees = new AssociationFees();
-        $associationFees->setMaxPrice(1000);
-        $associationFees->setMinPrice(500);
-        $associationFees->setAssociationFee(20.0);
-        $this->entityManager->persist($associationFees);
+        // Mock the user
+        $user = $this->createMock(User::class);
+        $userRepository = $this->createMock(EntityRepository::class);
+        $vehicleRepository = $this->createMock(EntityRepository::class);
 
-        // Flush the data into the database
-        $this->entityManager->flush();
-    }
+        // Ensure that getRepository is returning the correct repository for both User and VehiculeType
+        $this->entityManager->expects($this->exactly(2))
+            ->method('getRepository')
+            ->willReturnMap([
+                [User::class, $userRepository],
+                [VehiculeType::class, $vehicleRepository]
+            ]);
 
-    public function testSaveCalculationWithValidInputAndAuthenticatedUser(): void
-    {
-        $client = static::createClient();
+        $userRepository->expects($this->once())
+            ->method('findOneBy')
+            ->with(['email' => $userEmail])
+            ->willReturn($user);
 
-        $data = [
-            'base_price' => 1000,
-            'vehicle_type_id' => 1
+        // Mock validation - no validation errors
+        $constraintViolationList = $this->createMock(ConstraintViolationListInterface::class);
+        $constraintViolationList->expects($this->once())
+            ->method('count')
+            ->willReturn(0);
+
+        $this->validator->expects($this->once())
+            ->method('validate')
+            ->willReturn($constraintViolationList);
+
+        // Mock vehicle type
+        $vehicleType = $this->createMock(VehiculeType::class);
+        $vehicleRepository->expects($this->once())
+            ->method('find')
+            ->with($vehicleTypeId)
+            ->willReturn($vehicleType);  // Return a valid vehicle type instead of null
+
+        // Mock fee calculation
+        $fees = [
+            'basic_fee' => 10,
+            'special_fee' => 20,
+            'association_fee' => 5,
+            'storage_fee' => 15,
+            'total_cost' => 150
         ];
+        $this->calculationService->expects($this->once())
+            ->method('calculateTotalCost')
+            ->with($basePrice, $vehicleType)
+            ->willReturn($fees);
 
-        $client->request(
-            'POST',
-            '/api/calculate',
-            [],
-            [],
-            ['CONTENT_TYPE' => 'application/json'],
-            json_encode($data)
-        );
+        // Mock the entity manager persist and flush for saving calculation
+        $this->entityManager->expects($this->once())->method('persist');
+        $this->entityManager->expects($this->once())->method('flush');
 
-        $response = $client->getResponse();
+        // Call the controller method
+        $response = $this->controller->saveCalculation($request, $this->entityManager, $this->validator);
 
-        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+        // Assert response
+        $this->assertInstanceOf(JsonResponse::class, $response);
+        $responseData = json_decode($response->getContent(), true);
 
-        $decodedContent = json_decode($response->getContent(), true);
-        $this->assertEquals('Calculation completed!', $decodedContent['status']);
-        $this->assertTrue($decodedContent['saved']);
-        $this->assertEquals(1500, $decodedContent['fees']['total_cost']);
+        // Assert the expected response structure
+        $this->assertArrayHasKey('status', $responseData);
+        $this->assertEquals('Calculation completed!', $responseData['status']);
+        $this->assertTrue($responseData['saved']);
+        $this->assertEquals($fees, $responseData['fees']);
     }
 
-    protected function tearDown(): void
+    public function testSaveCalculationWithInvalidVehicleType()
     {
-        parent::tearDown();
-        // Close the EntityManager
-        $this->entityManager->close();
-        $this->entityManager = null;
+        $basePrice = 100;
+        $vehicleTypeId = 999; // Invalid vehicle type
+
+        // Mock request data
+        $requestData = json_encode([
+            'base_price' => $basePrice,
+            'vehicle_type_id' => $vehicleTypeId
+        ]);
+        $request = Request::create('/api/calculate', 'POST', [], [], [], [], $requestData);
+
+        // Mock validation - no validation errors
+        $constraintViolationList = $this->createMock(ConstraintViolationListInterface::class);
+        $constraintViolationList->expects($this->once())
+            ->method('count')
+            ->willReturn(0);
+
+        $this->validator->expects($this->once())
+            ->method('validate')
+            ->willReturn($constraintViolationList);
+
+        // Mock vehicle type repository to return null (invalid vehicle type)
+        $vehicleRepository = $this->createMock(EntityRepository::class);
+        $this->entityManager->expects($this->once())
+            ->method('getRepository')
+            ->with(VehiculeType::class)
+            ->willReturn($vehicleRepository);
+
+        $vehicleRepository->expects($this->once())
+            ->method('find')
+            ->with($vehicleTypeId)
+            ->willReturn(null);
+
+        // Call the controller method
+        $response = $this->controller->saveCalculation($request, $this->entityManager, $this->validator);
+
+        // Assert response
+        $this->assertInstanceOf(JsonResponse::class, $response);
+        $this->assertEquals(400, $response->getStatusCode());
+        $this->assertEquals(['error' => 'Invalid vehicle type ID.'], json_decode($response->getContent(), true));
     }
 }

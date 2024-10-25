@@ -9,8 +9,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class RequestHelper
 {
-    private $validator;
-    private $serializer;
+    private ValidatorInterface $validator;
+    private SerializerInterface $serializer;
 
     public function __construct(ValidatorInterface $validator, SerializerInterface $serializer)
     {

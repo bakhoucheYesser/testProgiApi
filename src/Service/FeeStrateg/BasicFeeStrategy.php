@@ -13,6 +13,4 @@ class BasicFeeStrategy implements FeeStrategyInterface
 
         return min(max($basicFee , $vehicleType->getBasicFeeMin()), $vehicleType->getBasicFeeMax());
     }
-
-
 }

@@ -37,4 +37,4 @@ services:
 
     App\Service\CalculationService:
         arguments:
-            $feeStrategies: !tagged app.fee_strategy
+            $feeStrategies: !tagged_iterator app.fee_strategy
